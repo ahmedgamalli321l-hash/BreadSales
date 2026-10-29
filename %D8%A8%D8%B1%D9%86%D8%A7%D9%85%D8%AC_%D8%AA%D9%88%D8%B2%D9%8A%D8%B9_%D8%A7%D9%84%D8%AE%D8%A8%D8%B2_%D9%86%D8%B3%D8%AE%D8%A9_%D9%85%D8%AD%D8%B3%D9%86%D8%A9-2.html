@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#b42318">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>إدارة توزيع الخبز</title>
+<style>
+:root{--red:#b42318;--red2:#e53935;--ink:#202124;--muted:#687078;--line:#e5e7eb;--bg:#f5f6f8;--card:#fff;--green:#16803c;--amber:#a15c00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:12px 14px;font-weight:700}.app{max-width:1000px;margin:auto;min-height:100vh}.top{background:linear-gradient(135deg,#991b1b,var(--red2));color:white;padding:22px 18px 18px;border-radius:0 0 24px 24px}.brand{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand h1{font-size:22px;margin:0 0 6px}.brand p{margin:0;opacity:.9;font-size:13px}.pill{background:#ffffff26;border:1px solid #ffffff50;padding:7px 10px;border-radius:999px;font-size:12px}.nav{display:flex;gap:8px;overflow:auto;padding:12px 12px 2px}.nav button{white-space:nowrap;background:#fff;color:#444;border:1px solid var(--line);padding:10px 13px}.nav button.active{background:var(--red);color:#fff;border-color:var(--red)}main{padding:14px}.page{display:none}.page.active{display:block}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}.stat,.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px}.stat span{display:block;color:var(--muted);font-size:13px;margin-bottom:9px}.stat strong{font-size:22px}.stat small{display:block;color:var(--muted);margin-top:5px}.panel{margin-bottom:13px}.panel h2{font-size:17px;margin:0 0 14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field label{display:block;font-size:13px;color:#555;margin:0 0 6px}.field input,.field select,.search{width:100%;border:1px solid #d7dbe0;border-radius:10px;padding:12px;background:white;min-width:0}.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.product{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff}.product b{display:block;font-size:14px;min-height:35px}.product .price{font-size:12px;color:var(--muted);margin:5px 0 8px}.qty{display:flex;align-items:center;gap:7px}.qty button{padding:6px 10px;background:#f1f2f4;color:#222}.qty input{width:54px;text-align:center;border:1px solid var(--line);border-radius:8px;padding:8px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.primary{background:var(--red);color:white}.secondary{background:#f0f1f3;color:#252525}.danger{background:#fff0ef;color:#b42318}.green{background:#eaf7ee;color:var(--green)}.muted{color:var(--muted);font-size:13px}.total{display:flex;justify-content:space-between;align-items:center;background:#fff5f4;border:1px solid #f5c4c0;padding:13px;border-radius:12px;margin-top:12px}.total strong{font-size:22px;color:var(--red)}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:520px}th,td{text-align:right;padding:11px 8px;border-bottom:1px solid var(--line);font-size:13px}th{color:#60656b;background:#fafafa}.empty{text-align:center;color:var(--muted);padding:22px}.badge{font-size:11px;border-radius:20px;padding:4px 8px;background:#f0f1f3}.notice{font-size:12px;line-height:1.8;background:#fff8e7;border:1px solid #f2dfae;padding:11px;border-radius:10px;color:#79520b}.footer{padding:6px 16px 24px;color:#73777d;font-size:11px;text-align:center}.section-title{display:flex;justify-content:space-between;align-items:center;gap:8px}.section-title h2{margin-bottom:12px}.smallbtn{padding:7px 10px;font-size:12px}.hide{display:none!important}
+@media(min-width:700px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.products{grid-template-columns:repeat(3,minmax(0,1fr))}.top{margin-top:16px}.app{padding:0 12px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* تحسينات الاستخدام السريع في الميدان */
+body{font-size:16px}.brand h1{font-size:24px}.nav{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 12px;box-shadow:0 3px 8px #00000008}.nav button{font-size:15px;padding:12px 15px}.field input,.field select{font-size:17px;min-height:48px}.product{padding:13px}.product b{font-size:16px;min-height:42px}.product .price{font-size:13px}.qty button{min-width:42px;min-height:42px;font-size:22px}.qty input{width:66px;min-height:42px;font-size:18px}.primary{box-shadow:0 3px 0 #7f1d1d20}.actions button{min-height:46px}.save-state{font-size:12px;color:#fff;background:#ffffff20;padding:6px 9px;border-radius:999px;margin-top:10px;display:inline-block}.quick-customer{display:flex;gap:7px;overflow:auto;padding:5px 0 2px}.quick-customer button{white-space:nowrap;background:#fff;border:1px solid #ddd;color:#333;font-size:13px;padding:9px 12px}.stat strong{font-size:20px}.notice{font-size:13px}
+@media(max-width:380px){main{padding:9px}.stats{gap:7px}.stat{padding:11px}.stat strong{font-size:18px}.products{gap:7px}.product{padding:9px}.nav{padding-inline:7px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><div><h1>إدارة توزيع الخبز</h1><p>المبيعات • المخزون • التحصيل • تقرير اليوم</p></div><span class="pill" id="connectionState">جاهز للعمل</span></div><div class="save-state" id="saveState">الحفظ التلقائي مفعّل على هذا الجهاز</div></header>
+<nav class="nav">
+<button class="active" data-page="home">الرئيسية</button><button data-page="sale">تسجيل بيع</button><button data-page="stock">المخزون</button><button data-page="returns">المرتجعات</button><button data-page="report">تقرير اليوم</button><button data-page="settings">المنتجات والإعدادات</button>
+</nav>
+<main>
+<section id="home" class="page active">
+<div class="stats">
+<div class="stat"><span>إجمالي المبيعات</span><strong id="sSales">0.00 ر.س</strong><small>قيمة القطع المباعة</small></div>
+<div class="stat"><span>المبلغ المحصّل</span><strong id="sCash">0.00 ر.س</strong><small>النقد المستلم فعليًا</small></div>
+<div class="stat"><span>المتبقي للتحصيل</span><strong id="sDue">0.00 ر.س</strong><small>مبيعات لم تُحصّل</small></div>
+<div class="stat"><span>المرتجعات</span><strong id="sReturns">0</strong><small>قطعة مرتجعة (منفصلة)</small></div>
+</div>
+<div class="panel"><h2>ملخص سريع</h2><p class="muted">سجّل البيع لكل محل، ثم سجّل المبلغ الذي استلمته فقط. المرتجعات تُسجّل في قسم مستقل ولا تخصم تلقائيًا من التحصيل.</p><div class="actions"><button class="primary" onclick="showPage('sale')">＋ تسجيل بيع جديد</button><button class="secondary" onclick="showPage('report')">عرض تقرير اليوم</button></div></div>
+<div class="notice">تنبيه: هذه نسخة تجريبية تحفظ البيانات على هذا المتصفح والجهاز فقط. لا تمسح بيانات المتصفح قبل تصدير نسخة احتياطية، ولم يتم نشرها بعد على رابط HTTPS.</div>
+<div class="panel"><div class="section-title"><h2>آخر العمليات</h2><button class="secondary smallbtn" onclick="showPage('report')">عرض الكل</button></div><div id="recent"></div></div>
+</section>
+<section id="sale" class="page">
+<div class="panel"><h2>تسجيل بيع للمحل</h2><div class="grid">
+<div class="field"><label>اسم المحل / العميل</label><input id="customer" list="customerList" placeholder="اكتب اسم المحل" autocomplete="off"><datalist id="customerList"></datalist></div>
+<div class="field"><label>المبلغ المحصّل الآن (ريال)</label><input id="collected" type="number" min="0" step=".01" value="0"></div>
+<div class="field"><label>ملاحظات (اختياري)</label><input id="saleNote" placeholder="مثال: باقي المبلغ آجل"></div>
+</div></div>
+<div class="panel"><h2>محلات زرتها مؤخرًا</h2><div class="quick-customer" id="quickCustomers"><span class="muted">ستظهر هنا أسماء المحلات المسجلة</span></div></div>
+<div class="panel"><div class="section-title"><h2>المنتجات والكمية المباعة</h2><span class="badge">بالقطعة</span></div><div id="saleProducts" class="products"></div><div class="total"><span>إجمالي البيع</span><strong id="saleTotal">0.00 ر.س</strong></div><div class="muted" id="saleDuePreview">المتبقي على العميل: 0.00 ر.س</div><div class="actions"><button class="primary" onclick="saveSale()">حفظ عملية البيع</button><button class="secondary" onclick="clearSale()">مسح الكميات</button></div></div>
+</section>
+<section id="stock" class="page">
+<div class="panel"><div class="section-title"><h2>المخزون الحالي</h2><button class="secondary smallbtn" onclick="showPage('settings')">تعديل المنتجات</button></div><p class="muted">أدخل كمية بداية اليوم أو عدّل المخزون يدويًا. تسجيل البيع يخصم الكمية تلقائيًا.</p><div id="stockTable" class="tablewrap"></div></div>
+<div class="panel"><h2>إضافة / تعديل مخزون</h2><div class="grid"><div class="field"><label>المنتج</label><select id="stockProduct"></select></div><div class="field"><label>الكمية المضافة</label><input id="stockAdd" type="number" min="0" step="1" value="0"></div></div><div class="actions"><button class="primary" onclick="addStock()">إضافة للمخزون</button></div></div>
+</section>
+<section id="returns" class="page">
+<div class="panel"><h2>تسجيل مرتجع</h2><p class="muted">المرتجع محفوظ في سجل مستقل، ولا يُخصم من إجمالي المبيعات أو النقد المحصّل تلقائيًا.</p><div class="grid"><div class="field"><label>اسم المحل</label><input id="returnCustomer" placeholder="اسم العميل"></div><div class="field"><label>المنتج</label><select id="returnProduct"></select></div><div class="field"><label>الكمية المرتجعة</label><input id="returnQty" type="number" min="1" step="1" value="1"></div><div class="field"><label>ملاحظة</label><input id="returnNote" placeholder="سبب المرتجع (اختياري)"></div></div><div class="actions"><button class="primary" onclick="saveReturn()">حفظ المرتجع</button></div></div>
+<div class="panel"><h2>سجل المرتجعات</h2><div id="returnTable" class="tablewrap"></div></div>
+</section>
+<section id="report" class="page">
+<div class="panel"><div class="section-title"><h2>تقرير اليوم</h2><button class="secondary smallbtn" onclick="exportData()">تصدير نسخة احتياطية</button></div><div class="stats">
+<div class="stat"><span>إجمالي البيع</span><strong id="rSales">0.00</strong></div><div class="stat"><span>التحصيل</span><strong id="rCash">0.00</strong></div><div class="stat"><span>المتبقي آجل</span><strong id="rDue">0.00</strong></div><div class="stat"><span>عدد عمليات البيع</span><strong id="rCount">0</strong></div>
+</div><div id="salesTable" class="tablewrap"></div><div class="actions"><button class="secondary" onclick="exportCSV()">تنزيل تقرير CSV</button><button class="danger" onclick="closeDay()">إغلاق اليوم / بدء يوم جديد</button></div></div>
+<div class="notice">قبل إغلاق اليوم: صدّر نسخة احتياطية. إغلاق اليوم ينقل العمليات الحالية إلى سجل الأيام السابقة ولا يحذف المنتجات أو المخزون.</div>
+</section>
+<section id="settings" class="page">
+<div class="panel"><h2>المنتجات وأسعار القطعة</h2><p class="muted">الأسعار الافتراضية محسوبة من أسعار العبوات التي ذكرتها سابقًا؛ راجعها وعدّلها حسب سعر البيع الفعلي بالقطعة.</p><div id="settingsTable" class="tablewrap"></div><div class="actions"><button class="primary" onclick="saveProducts()">حفظ الأسعار</button><button class="secondary" onclick="restoreDefaults()">استعادة الأسعار الافتراضية</button></div></div>
+<div class="panel"><h2>إدارة البيانات</h2><div class="actions"><button class="secondary" onclick="exportData()">تصدير نسخة احتياطية JSON</button><label class="secondary" style="display:inline-block;padding:12px 14px;border-radius:12px;font-weight:700;cursor:pointer">استيراد نسخة احتياطية<input type="file" accept=".json,application/json" onchange="importData(event)" style="display:none"></label></div><p class="muted">احتفظ بالنسخة الاحتياطية في مكان آمن.</p></div>
+</section>
+</main><div class="footer">إدارة توزيع الخبز — نموذج أولي محلي، وليس نظامًا سحابيًا منشورًا بعد.</div>
+</div>
+<script>
+const defaults=[
+{name:"خبز أبيض",price:10/12,stock:0,group:"الخبز"},
+{name:"خبز بور / بني",price:10/12,stock:0,group:"الخبز"},
+{name:"صامولي كبير",price:10/12,stock:0,group:"الخبز"},
+{name:"صامولي ميني صغير",price:10/6,stock:0,group:"الخبز"},
+{name:"فطاير جنة",price:10/8,stock:0,group:"المخبوزات"},
+{name:"كيك مربع",price:10/8,stock:0,group:"المخبوزات"},
+{name:"خبز شوفان",price:5/2,stock:0,group:"الخبز"},
+{name:"كعك كبير",price:10,stock:0,group:"الكعك"},
+{name:"كعك صغير",price:6,stock:0,group:"الكعك"},
+{name:"كعك شاي",price:5,stock:0,group:"الكعك"},
+{name:"كرات جبنة",price:10/4,stock:0,group:"المخبوزات"}];
+let data={products:structuredClone(defaults),sales:[],returns:[],archives:[]};
+try{const saved=localStorage.getItem("breadManagerV1");if(saved)data=JSON.parse(saved);if(!data.products)data.products=structuredClone(defaults);if(!data.sales)data.sales=[];if(!data.returns)data.returns=[];if(!data.archives)data.archives=[];}catch(e){}
+const money=n=>(Number(n)||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})+" ر.س";
+const today=()=>new Date().toLocaleDateString("en-CA");
+function persist(){let draft=null;try{draft=localStorage.getItem("breadSaleDraft");localStorage.setItem("breadManagerV1",JSON.stringify(data));const st=document.getElementById("saveState");if(st)st.textContent="✓ تم الحفظ على الجهاز · "+new Date().toLocaleTimeString("ar-SA",{hour:"2-digit",minute:"2-digit"});}catch(e){alert("تعذر حفظ البيانات. صدّر نسخة احتياطية فورًا وتأكد من مساحة الجهاز.");}renderAll();if(draft){localStorage.setItem("breadSaleDraft",draft);restoreDraft();}}
+function saveDraft(){try{const draft={customer:document.getElementById("customer")?.value||"",collected:document.getElementById("collected")?.value||"0",note:document.getElementById("saleNote")?.value||"",qty:data.products.map((p,i)=>document.getElementById("q"+i)?.value||"0")};localStorage.setItem("breadSaleDraft",JSON.stringify(draft));}catch(e){}}
+function restoreDraft(){try{const d=JSON.parse(localStorage.getItem("breadSaleDraft")||"null");if(!d)return;document.getElementById("customer").value=d.customer||"";document.getElementById("collected").value=d.collected||"0";document.getElementById("saleNote").value=d.note||"";(d.qty||[]).forEach((q,i)=>{const el=document.getElementById("q"+i);if(el)el.value=q||"0"});calcSale();}catch(e){}}
+function renderCustomers(){const names=[...new Set(data.sales.map(x=>x.customer).filter(x=>x&&x!=="عميل نقدي"))];const dl=document.getElementById("customerList");if(dl)dl.innerHTML=names.map(n=>`<option value="${esc(n)}"></option>`).join("");const box=document.getElementById("quickCustomers");if(box)box.innerHTML=names.slice(0,12).map(n=>`<button onclick="pickCustomer(${JSON.stringify(n).replace(/</g,'\u003c')})">${esc(n)}</button>`).join("")||'<span class="muted">ستظهر أسماء المحلات بعد تسجيل أول عملية</span>';}
+function pickCustomer(n){document.getElementById("customer").value=n;showPage("sale");saveDraft();}
+function showPage(id){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===id));window.scrollTo(0,0);renderAll()}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+function renderSaleProducts(){document.getElementById("saleProducts").innerHTML=data.products.map((p,i)=>`<div class="product"><b>${esc(p.name)}</b><div class="price">${money(p.price)} للقطعة • المخزون: ${p.stock}</div><div class="qty"><button onclick="changeQty(${i},-1)">−</button><input id="q${i}" type="number" min="0" value="0" oninput="calcSale()"><button onclick="changeQty(${i},1)">+</button></div></div>`).join("");}
+function changeQty(i,d){let el=document.getElementById("q"+i);el.value=Math.max(0,(+el.value||0)+d);calcSale()}
+function calcSale(){let total=0;data.products.forEach((p,i)=>{const q=+(document.getElementById("q"+i)?.value||0);total+=q*p.price});document.getElementById("saleTotal").textContent=money(total);const cash=+document.getElementById("collected").value||0;document.getElementById("saleDuePreview").textContent="المتبقي على العميل: "+money(Math.max(0,total-cash));saveDraft();}
+document.getElementById("collected").addEventListener("input",calcSale);
+function clearSale(){try{localStorage.removeItem("breadSaleDraft")}catch(e){}data.products.forEach((p,i)=>{const e=document.getElementById("q"+i);if(e)e.value=0});document.getElementById("collected").value=0;document.getElementById("customer").value="";document.getElementById("saleNote").value="";calcSale()}
+function saveSale(){const customer=document.getElementById("customer").value.trim();let items=[],total=0;data.products.forEach((p,i)=>{let qty=+(document.getElementById("q"+i)?.value||0);if(qty>0){items.push({name:p.name,qty,price:p.price});total+=qty*p.price}});const cash=+(document.getElementById("collected").value||0);if(!items.length)return alert("أدخل كمية مباعة واحدة على الأقل.");if(cash<0||cash>total+.001)return alert("راجع المبلغ المحصّل؛ لا يمكن أن يتجاوز إجمالي البيع.");for(const it of items){const p=data.products.find(x=>x.name===it.name);if(p.stock<it.qty)return alert("المخزون غير كافٍ للمنتج: "+it.name+" (المتاح "+p.stock+"). أضف المخزون أولًا.");}items.forEach(it=>data.products.find(p=>p.name===it.name).stock-=it.qty);data.sales.unshift({id:Date.now(),date:new Date().toISOString(),day:today(),customer:customer||"عميل نقدي",items,total,cash,due:total-cash,note:document.getElementById("saleNote").value.trim()});persist();clearSale();showPage("report");alert("تم حفظ عملية البيع.");}
+function addStock(){const i=+document.getElementById("stockProduct").value;const q=+document.getElementById("stockAdd").value;if(!(q>0))return alert("أدخل كمية صحيحة.");data.products[i].stock+=q;document.getElementById("stockAdd").value=0;persist();alert("تم تحديث المخزون.");}
+function saveReturn(){const customer=document.getElementById("returnCustomer").value.trim();const i=+document.getElementById("returnProduct").value;const qty=+document.getElementById("returnQty").value;if(!(qty>0))return alert("أدخل كمية مرتجع صحيحة.");data.returns.unshift({id:Date.now(),date:new Date().toISOString(),day:today(),customer:customer||"غير محدد",product:data.products[i].name,qty,note:document.getElementById("returnNote").value.trim()});data.products[i].stock+=qty;persist();document.getElementById("returnCustomer").value="";document.getElementById("returnQty").value=1;document.getElementById("returnNote").value="";alert("تم تسجيل المرتجع بشكل مستقل، ولم يُخصم من التحصيل.");}
+function table(headers,rows){if(!rows.length)return '<div class="empty">لا توجد بيانات حتى الآن</div>';return '<table><thead><tr>'+headers.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table>'}
+function renderStock(){document.getElementById("stockTable").innerHTML=table(["المنتج","المخزون","سعر القطعة"],data.products.map(p=>`<tr><td>${esc(p.name)}</td><td>${p.stock}</td><td>${money(p.price)}</td></tr>`));}
+function renderReturns(){document.getElementById("returnTable").innerHTML=table(["التاريخ","المحل","المنتج","الكمية","ملاحظة"],data.returns.map(r=>`<tr><td>${new Date(r.date).toLocaleString("ar-SA")}</td><td>${esc(r.customer)}</td><td>${esc(r.product)}</td><td>${r.qty}</td><td>${esc(r.note||"—")}</td></tr>`));}
+function renderSales(){let sales=data.sales.filter(s=>s.day===today());const total=sales.reduce((a,s)=>a+s.total,0),cash=sales.reduce((a,s)=>a+s.cash,0),due=sales.reduce((a,s)=>a+s.due,0);document.getElementById("rSales").textContent=money(total);document.getElementById("rCash").textContent=money(cash);document.getElementById("rDue").textContent=money(due);document.getElementById("rCount").textContent=sales.length;document.getElementById("salesTable").innerHTML=table(["الوقت","المحل","تفاصيل","الإجمالي","المحصّل","المتبقي"],sales.map(s=>`<tr><td>${new Date(s.date).toLocaleTimeString("ar-SA",{hour:"2-digit",minute:"2-digit"})}</td><td>${esc(s.customer)}</td><td>${s.items.map(i=>esc(i.name)+" × "+i.qty).join("، ")}</td><td>${money(s.total)}</td><td>${money(s.cash)}</td><td>${money(s.due)}</td></tr>`));}
+function renderHome(){const sales=data.sales.filter(s=>s.day===today());document.getElementById("sSales").textContent=money(sales.reduce((a,s)=>a+s.total,0));document.getElementById("sCash").textContent=money(sales.reduce((a,s)=>a+s.cash,0));document.getElementById("sDue").textContent=money(sales.reduce((a,s)=>a+s.due,0));document.getElementById("sReturns").textContent=data.returns.filter(r=>r.day===today()).reduce((a,r)=>a+r.qty,0);let recent=[...data.sales].slice(0,5);document.getElementById("recent").innerHTML=recent.length?recent.map(s=>`<div style="display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)"><div><b>${esc(s.customer)}</b><div class="muted">${new Date(s.date).toLocaleString("ar-SA")}</div></div><b>${money(s.total)}</b></div>`).join(""):'<div class="empty">سجّل أول عملية بيع لتظهر هنا</div>';}
+function renderSettings(){document.getElementById("settingsTable").innerHTML=table(["المنتج","سعر القطعة (ر.س)","المجموعة"],data.products.map((p,i)=>`<tr><td>${esc(p.name)}</td><td><input style="width:110px;padding:8px;border:1px solid #ddd;border-radius:8px" type="number" min="0" step=".01" id="price${i}" value="${p.price.toFixed(4)}"></td><td>${p.group}</td></tr>`));}
+function saveProducts(){data.products.forEach((p,i)=>{const v=+document.getElementById("price"+i).value;if(v>=0)p.price=v});persist();alert("تم حفظ الأسعار.");}
+function restoreDefaults(){if(!confirm("استعادة الأسعار الافتراضية؟ لن يتغير المخزون."))return;data.products.forEach((p,i)=>p.price=defaults[i].price);persist();}
+function renderSelects(){["stockProduct","returnProduct"].forEach(id=>{const el=document.getElementById(id),old=el.value;el.innerHTML=data.products.map((p,i)=>`<option value="${i}">${esc(p.name)}</option>`).join("");if(old)el.value=old;});}
+function renderAll(){renderSaleProducts();renderSelects();renderStock();renderReturns();renderSales();renderHome();renderSettings();renderCustomers();calcSale()}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});download(blob,"backup-bread-"+today()+".json")}
+function exportCSV(){const rows=[["التاريخ","المحل","المنتجات","الإجمالي","المحصل","المتبقي"],...data.sales.filter(s=>s.day===today()).map(s=>[new Date(s.date).toLocaleString("ar-SA"),s.customer,s.items.map(i=>i.name+" x "+i.qty).join(" / "),s.total.toFixed(2),s.cash.toFixed(2),s.due.toFixed(2)])];download(new Blob(["\ufeff"+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\r\n")],{type:"text/csv;charset=utf-8"}),"daily-report-"+today()+".csv")}
+function download(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function importData(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const d=JSON.parse(reader.result);if(!d.products||!d.sales)throw Error();data={products:d.products,sales:d.sales,returns:d.returns||[],archives:d.archives||[]};persist();alert("تم استيراد النسخة الاحتياطية.");}catch(err){alert("الملف غير صالح.");}};reader.readAsText(file)}
+function closeDay(){if(!confirm("هل صدّرت نسخة احتياطية؟ سيتم نقل عمليات اليوم إلى سجل الأيام السابقة ومسحها من شاشة اليوم."))return;const old=data.sales.filter(s=>s.day===today());const oldReturns=data.returns.filter(r=>r.day===today());data.archives.push({day:today(),sales:old,returns:oldReturns});data.sales=data.sales.filter(s=>s.day!==today());data.returns=data.returns.filter(r=>r.day!==today());persist();alert("تم إغلاق اليوم. المخزون المتبقي محفوظ.");}
+const startupDraft=localStorage.getItem("breadSaleDraft");
+renderAll();
+if(startupDraft){localStorage.setItem("breadSaleDraft",startupDraft);restoreDraft();}
+["customer","collected","saleNote"].forEach(id=>document.getElementById(id)?.addEventListener("input",saveDraft));
+window.addEventListener("online",()=>{const e=document.getElementById("connectionState");if(e)e.textContent="متصل بالإنترنت"});
+window.addEventListener("offline",()=>{const e=document.getElementById("connectionState");if(e)e.textContent="يعمل دون إنترنت"});
+const cs=document.getElementById("connectionState");if(cs)cs.textContent=navigator.onLine?"جاهز للعمل":"يعمل دون إنترنت";
+</script>
+<script>if("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
+</body></html>
