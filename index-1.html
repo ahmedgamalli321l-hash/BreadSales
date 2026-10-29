@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#146c43">
+<title>مبيعات توزيع الخبز</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;color:#17212b;background:#f3f6f4}
+*{box-sizing:border-box}body{margin:0;font-size:18px}header{background:#146c43;color:white;padding:18px 16px;position:sticky;top:0;z-index:2;box-shadow:0 2px 8px #0002}h1{font-size:24px;margin:0 0 5px}header p{margin:0;font-size:14px;opacity:.9}
+main{max-width:760px;margin:auto;padding:12px}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:8px 0 14px}.tab,button{border:0;border-radius:10px;padding:12px 10px;font:inherit;font-weight:700;cursor:pointer}.tab{background:#dce8e0;color:#17452e}.tab.active,button.primary{background:#146c43;color:white}.panel{background:white;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 5px #0000000d}.panel h2{font-size:21px;margin:0 0 12px}.muted{color:#64736b;font-size:14px}.field{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}.field label{font-weight:700;font-size:16px}.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid #cbd6ce;border-radius:9px;font:inherit;background:white}.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.product{border:1px solid #dce5df;border-radius:12px;padding:11px;margin:7px 0;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.product strong{display:block}.price{font-size:14px;color:#64736b}.qty{display:flex;align-items:center;gap:8px}.qty button{padding:7px 12px;background:#e0eee5;color:#145b37;font-size:22px}.qty span{min-width:22px;text-align:center;font-weight:800}.summary{display:grid;grid-template-columns:1fr 1fr;gap:8px}.metric{background:#eef6f0;border-radius:10px;padding:12px}.metric small{display:block;color:#52675a}.metric b{font-size:22px}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{flex:1;min-width:130px}.danger{background:#ffebe8;color:#9e281d}.secondary{background:#e8eeea;color:#263c2e}.hidden{display:none!important}table{width:100%;border-collapse:collapse;font-size:15px}td,th{padding:8px 4px;border-bottom:1px solid #e3e9e4;text-align:right}th{background:#f2f6f3}.notice{background:#fff7df;border:1px solid #f0d995;border-radius:10px;padding:10px;font-size:14px}.empty{color:#77847c;text-align:center;padding:18px}.smallbtn{font-size:14px;padding:7px}.footer{text-align:center;color:#77847c;font-size:12px;padding:15px}
+</style>
+</head>
+<body>
+<header><h1>🥖 مبيعات توزيع الخبز</h1><p>برنامج بسيط يعمل على هذا الجهاز ويحفظ البيانات محليًا</p></header>
+<main>
+<div class="tabs">
+<button class="tab active" data-tab="sale">البيع</button>
+<button class="tab" data-tab="returns">المرتجعات</button>
+<button class="tab" data-tab="report">التقرير</button>
+</div>
+<section id="sale">
+<div class="panel">
+<h2>بيانات البيع</h2>
+<div class="field"><label for="customer">المحل / العميل</label><input id="customer" placeholder="اسم المحل (اختياري)"></div>
+<div class="field"><label for="note">ملاحظات</label><input id="note" placeholder="اختياري"></div>
+</div>
+<div class="panel"><h2>الأصناف — اضغط + لتسجيل الكمية بالحبة</h2><div id="products"></div></div>
+<div class="panel">
+<h2>ملخص الفاتورة</h2>
+<div class="summary"><div class="metric"><small>إجمالي البيع</small><b id="saleTotal">0.00 ر.س</b></div><div class="metric"><small>عدد الحبات</small><b id="saleQty">0</b></div></div>
+<div class="field" style="margin-top:12px"><label for="paid">المبلغ المحصل نقدًا (ر.س)</label><input id="paid" type="number" min="0" step=".01" value="0" inputmode="decimal"></div>
+<div class="field"><label for="saleType">نوع البيع</label><select id="saleType"><option value="cash">نقدي</option><option value="credit">آجل / على الحساب</option><option value="partial">جزء نقدي والباقي آجل</option></select></div>
+<div class="actions"><button class="primary" id="saveSale">حفظ البيع</button><button class="secondary" id="clearSale">تفريغ الاختيار</button></div>
+</div>
+</section>
+<section id="returns" class="hidden">
+<div class="panel"><h2>تسجيل مرتجع</h2><p class="muted">المرتجعات تُسجل منفصلة ولا تُخصم تلقائيًا من إجمالي النقد المحصل.</p>
+<div class="field"><label for="returnProduct">الصنف المرتجع</label><select id="returnProduct"></select></div>
+<div class="grid"><div class="field"><label for="returnQty">الكمية بالحبة</label><input id="returnQty" type="number" min="1" step="1" value="1" inputmode="numeric"></div><div class="field"><label for="returnCustomer">اسم المحل</label><input id="returnCustomer" placeholder="اختياري"></div></div>
+<div class="field"><label for="returnNote">ملاحظات</label><input id="returnNote" placeholder="اختياري"></div>
+<button class="primary" id="saveReturn">حفظ المرتجع</button></div>
+<div class="panel"><h2>مرتجعات اليوم</h2><div id="returnList"></div></div>
+</section>
+<section id="report" class="hidden">
+<div class="panel"><h2>تقرير اليوم</h2><div class="summary">
+<div class="metric"><small>إجمالي المبيعات</small><b id="rSales">0.00</b></div>
+<div class="metric"><small>النقد المحصل</small><b id="rCash">0.00</b></div>
+<div class="metric"><small>المتبقي آجل</small><b id="rCredit">0.00</b></div>
+<div class="metric"><small>المرتجعات (حبة)</small><b id="rReturns">0</b></div>
+</div></div>
+<div class="panel"><h2>حركات البيع</h2><div id="salesList"></div></div>
+<div class="panel"><h2>نسخ احتياطي للبيانات</h2><p class="muted">نزّل نسخة احتياطية بشكل دوري. البيانات محفوظة في متصفح هذا الجهاز فقط.</p><div class="actions"><button class="primary" id="backup">تنزيل نسخة احتياطية</button><button class="secondary" id="restoreBtn">استعادة نسخة</button><input id="restoreFile" type="file" accept="application/json" class="hidden"></div></div>
+<div class="panel"><button class="danger" id="reset">مسح كل بيانات البرنامج</button><p class="muted">لا تستخدم هذا الزر إلا إذا كنت تريد حذف كل المبيعات والمرتجعات.</p></div>
+</section>
+<div class="notice">تنبيه: هذا إصدار تجريبي أولي. البيانات محفوظة على نفس المتصفح والجهاز؛ احفظ نسخة احتياطية بانتظام، ولا تمسح بيانات المتصفح.</div>
+<div class="footer">مبيعات توزيع الخبز • يعمل دون اتصال بعد حفظ الملف على الجهاز وإتاحته كتطبيق ويب</div>
+</main>
+<script>
+const PRODUCTS=[
+{id:'white',name:'خبز أبيض',price:10/12,display:'10 ريال / 12 حبة'},
+{id:'brown',name:'خبز أسمر',price:10/12,display:'10 ريال / 12 حبة'},
+{id:'samoliL',name:'صامولي كبير',price:10/12,display:'10 ريال / 12 حبة'},
+{id:'samoliS',name:'صامولي ميني صغير',price:10/6,display:'10 ريال / 6 حبات'},
+{id:'jana',name:'فطائر / جنة',price:10/8,display:'10 ريال / 8 حبات'},
+{id:'cake',name:'كيك مربع',price:10/8,display:'10 ريال / 8 حبات'},
+{id:'oat',name:'خبز شوفان',price:5/2,display:'5 ريال / حبتين'},
+{id:'kaakL',name:'كعك كبير',price:10,display:'10 ريال للحبة (عدّل السعر عند الحاجة)'},
+{id:'kaakS',name:'كعك صغير',price:6,display:'6 ريال للحبة (عدّل السعر عند الحاجة)'},
+{id:'teaKaak',name:'كعك شاي',price:5,display:'5 ريال للحبة (عدّل السعر عند الحاجة)'},
+{id:'cheese',name:'كرات جبنة',price:10/4,display:'10 ريال / 4 حبات'}
+];
+const KEY='breadSalesOfflineV1';
+let state=load(), chosen={};
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{sales:[],returns:[]}}catch(e){return{sales:[],returns:[]}}}
+function persist(){localStorage.setItem(KEY,JSON.stringify(state));renderReport();renderReturns()}
+function money(n){return (Number(n)||0).toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2})+' ر.س'}
+function today(){return new Date().toLocaleDateString('en-CA')}
+function price(p){return Number(p.price)}
+function renderProducts(){
+ const root=document.getElementById('products');root.innerHTML='';
+ PRODUCTS.forEach(p=>{const q=chosen[p.id]||0;const el=document.createElement('div');el.className='product';el.innerHTML=`<div><strong>${p.name}</strong><div class="price">${p.display} • سعر الحبة ${price(p).toFixed(3)} ريال</div></div><div class="qty"><button aria-label="تقليل">−</button><span>${q}</span><button aria-label="زيادة">+</button></div>`;const bs=el.querySelectorAll('button');bs[0].onclick=()=>{chosen[p.id]=Math.max(0,q-1);renderProducts();updateTotals()};bs[1].onclick=()=>{chosen[p.id]=q+1;renderProducts();updateTotals()};root.appendChild(el)});
+ const sel=document.getElementById('returnProduct');if(!sel.options.length)PRODUCTS.forEach(p=>sel.add(new Option(p.name,p.id)));
+}
+function calc(){let total=0,qty=0;PRODUCTS.forEach(p=>{const q=chosen[p.id]||0;total+=q*price(p);qty+=q});return{total,qty}}
+function updateTotals(){const c=calc();document.getElementById('saleTotal').textContent=money(c.total);document.getElementById('saleQty').textContent=c.qty;const paid=document.getElementById('paid');if(Number(paid.value)>c.total)paid.value=c.total.toFixed(2)}
+document.getElementById('paid').addEventListener('input',()=>{const c=calc();if(Number(document.getElementById('paid').value)>c.total)document.getElementById('paid').value=c.total.toFixed(2)});
+document.getElementById('saveSale').onclick=()=>{const c=calc();if(!c.qty){alert('اختر كمية صنف واحد على الأقل');return}const type=document.getElementById('saleType').value;let paid=Number(document.getElementById('paid').value)||0;if(type==='cash')paid=c.total;if(type==='credit')paid=0;if(paid<0||paid>c.total){alert('راجع المبلغ المحصل');return}state.sales.push({id:Date.now(),date:today(),time:new Date().toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'}),customer:document.getElementById('customer').value.trim(),note:document.getElementById('note').value.trim(),items:PRODUCTS.filter(p=>(chosen[p.id]||0)>0).map(p=>({id:p.id,name:p.name,qty:chosen[p.id],price:price(p)})),total:c.total,paid,credit:c.total-paid});persist();chosen={};document.getElementById('customer').value='';document.getElementById('note').value='';document.getElementById('paid').value='0';document.getElementById('saleType').value='cash';renderProducts();updateTotals();alert('تم حفظ البيع بنجاح')};
+document.getElementById('saleType').onchange=e=>{const c=calc();document.getElementById('paid').value=e.target.value==='cash'?c.total.toFixed(2):'0'};
+document.getElementById('clearSale').onclick=()=>{chosen={};document.getElementById('paid').value='0';renderProducts();updateTotals()};
+document.getElementById('saveReturn').onclick=()=>{const q=Math.floor(Number(document.getElementById('returnQty').value));if(!q||q<1){alert('أدخل كمية صحيحة');return}const p=PRODUCTS.find(x=>x.id===document.getElementById('returnProduct').value);state.returns.push({id:Date.now(),date:today(),time:new Date().toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'}),productId:p.id,name:p.name,qty:q,customer:document.getElementById('returnCustomer').value.trim(),note:document.getElementById('returnNote').value.trim()});persist();document.getElementById('returnQty').value='1';document.getElementById('returnCustomer').value='';document.getElementById('returnNote').value='';alert('تم حفظ المرتجع منفصلًا عن النقد المحصل')};
+function renderReturns(){const rows=state.returns.filter(x=>x.date===today()).slice().reverse();document.getElementById('returnList').innerHTML=rows.length?`<table><thead><tr><th>الصنف</th><th>الكمية</th><th>المحل</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r.name)}</td><td>${r.qty}</td><td>${esc(r.customer||'—')}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">لا توجد مرتجعات مسجلة اليوم</div>'}
+function renderReport(){const sales=state.sales.filter(x=>x.date===today()),rets=state.returns.filter(x=>x.date===today());const sum=(arr,k)=>arr.reduce((s,x)=>s+(Number(x[k])||0),0);document.getElementById('rSales').textContent=money(sum(sales,'total'));document.getElementById('rCash').textContent=money(sum(sales,'paid'));document.getElementById('rCredit').textContent=money(sum(sales,'credit'));document.getElementById('rReturns').textContent=rets.reduce((s,x)=>s+x.qty,0);document.getElementById('salesList').innerHTML=sales.length?`<table><thead><tr><th>الوقت</th><th>المحل</th><th>الإجمالي</th><th>نقد</th><th>آجل</th></tr></thead><tbody>${sales.slice().reverse().map(s=>`<tr><td>${esc(s.time)}</td><td>${esc(s.customer||'—')}</td><td>${money(s.total)}</td><td>${money(s.paid)}</td><td>${money(s.credit)}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">لا توجد مبيعات مسجلة اليوم</div>'}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));['sale','returns','report'].forEach(id=>document.getElementById(id).classList.toggle('hidden',id!==b.dataset.tab));renderReport();renderReturns()});
+document.getElementById('backup').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='backup-bread-sales-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+document.getElementById('restoreBtn').onclick=()=>document.getElementById('restoreFile').click();
+document.getElementById('restoreFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!Array.isArray(d.sales)||!Array.isArray(d.returns))throw Error();if(confirm('سيتم استبدال البيانات الحالية بالنسخة الاحتياطية. متابعة؟')){state=d;persist();alert('تمت الاستعادة')}}catch(err){alert('الملف غير صالح')}e.target.value=''};
+document.getElementById('reset').onclick=()=>{if(confirm('تأكيد مسح كل المبيعات والمرتجعات نهائيًا؟')){state={sales:[],returns:[]};persist();alert('تم مسح البيانات')}};
+renderProducts();updateTotals();renderReport();renderReturns();
+</script>
+</body>
+</html>
